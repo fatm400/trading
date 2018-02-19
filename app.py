@@ -20,7 +20,7 @@ ax1 = plt.subplot2grid((1,1), (0,0))
 def ohlc(klines):
     ohlc = []
     for elemento in klines:
-        temp2=[]
+        temp=[]
         i = 0
         for i in range(len(elemento)):
             #los elementos 0 y 6 son las estampas de tiempo de inicio y final
@@ -29,14 +29,15 @@ def ohlc(klines):
                 tradetime = mdates.epoch2num(elemento[i]/1000)
                 #las estampas de tiempo vienen en formato epoch en milisegundos
                 #se dividen entre mil para llevarlos a segundos
-                temp2.append(tradetime)
+                temp.append(tradetime)
             else:
-                temp2.append(float(elemento[i]))
+                temp.append(float(elemento[i]))
                 #los otros elementos vienen en string es necesario convertirlo
                 #en punto flotante
 
-        ohlc.append(temp2)
+        ohlc.append(temp)
     return ohlc
+        
 
 def candlestick(ohlc, ax):
 
