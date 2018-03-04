@@ -11,6 +11,8 @@ from matplotlib.finance import candlestick_ohlc
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import matplotlib.ticker as mticker
+import numpy as np
+from tai import tai
 
 client = Client(settings.api_key, settings.api_secret)
 klines = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_4HOUR, "2 Feb, 2018")
@@ -48,14 +50,40 @@ def candlestick(ohlc, ax):
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y/%m/%d'))
     ax1.xaxis.set_major_locator(mticker.MaxNLocator(10))
     ax1.grid(True)
-    
+        
     plt.xlabel('Fecha')
     plt.ylabel('Precio')
     #plt.title(stock)
     plt.legend()
     plt.subplots_adjust(left=0.09, bottom=0.20, right=0.94, top=0.90, wspace=0.2, hspace=0)
     plt.show()
+    
+def convert_array(ohlc, fuente=4):
+    # fuente = 0 open timestamp
+    # fuente = 1 open price
+    # fuente = 2 high price
+    # fuente = 3 low price
+    # fuente = 4 closed price
+    # fuente = 6 volumen
+    # fuente = 7 closed timestamp
+    try:
+        source = []
+        for elemento in ohlc:
+            source.append(elemento[int(fuente)])
+        
+        source_array = np.asarray(source)
+        
+        return source_array
+    
+    except IndexError:
+        print  "error convert_array"   
+    
+
+
 
    
 ohlc =  ohlc(klines)
+a = convert_array(ohlc)
+b = tai.ema(a, 20)
+c = tai.rsi(a)
 candlestick(ohlc, ax1)

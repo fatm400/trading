@@ -22,3 +22,16 @@ Referencias:
 * Binance API and Python - Part 1
 	http://casualcrypto.tech/binance-api-and-python-part-1/
 
+
+INDICADORES
+
+* Python - Media móvil o media móvil
+	https://code.i-harness.com/es/q/d17a88
+	
+* Modulo tai (technical analysis indicator)
+    https://pypi.python.org/pypi/tai
+
+* Guia referencia modulo tai
+    http://pythonhosted.org/tai/reference.html
+
+
