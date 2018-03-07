@@ -67,10 +67,14 @@ for i in range(1,10):
 #        c = datetime.strftime(b)
 #        datestring = b.strftime("%d-%m-%Y %H:%M:%S")
         datestring = b.strftime("%d"+" "+"%b"+", "+"%y %H:%M:%S")
-        klines2 = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_4HOUR, datestring)
-        if a == klines2[-1][0]:
-            print klines2[-1][4]
-            klines 
+        aux = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_4HOUR, datestring)
+        if a == aux[-1][0]:
+            klines.pop()
+	    klines.append(aux.pop())
+	else:
+	    klines.pop()
+            klines.extend(aux[-2:])
+             
         
     
     
