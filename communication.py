@@ -10,7 +10,8 @@ import settings
 from binance.client import Client
 #import matplotlib.dates as mdates
 from datetime import datetime
-import dateparser
+from time import sleep
+#import dateparser
 
 
 #KLINE_INTERVAL_1MINUTE = '1m'
@@ -29,52 +30,25 @@ import dateparser
 #KLINE_INTERVAL_1WEEK = '1w'
 #KLINE_INTERVAL_1MONTH = '1M'
 
-def ohlc(klines):
-    ohlc = []
-    for elemento in klines:
-        temp=[]
-        i = 0
-        for i in range(len(elemento)):
-            #los elementos 0 y 6 son las estampas de tiempo de inicio y final
-            # de la vela respectivamente
-            if i == 0 or i == 6: 
-                tradetime = mdates.epoch2num(elemento[i]/1000)
-                #las estampas de tiempo vienen en formato epoch en milisegundos
-                #se dividen entre mil para llevarlos a segundos
-                temp.append(tradetime)
-            else:
-                temp.append(float(elemento[i]))
-                #los otros elementos vienen en string es necesario convertirlo
-                #en punto flotante
-
-        ohlc.append(temp)
-    return ohlc
-
-
 client = Client(settings.api_key, settings.api_secret)
 
 klines = []
-#aux = []
+aux = []
 
-for i in range(1,10):
+for i in range(1,100):
 
     if klines == []:
-        klines = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_4HOUR, "02 mar, 2018")
-#        aux = klines
-    else:    
+        klines = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_1MINUTE, "02 mar, 2018")
+    else:
         a = klines[-1][0]
         b = datetime.fromtimestamp(float(a)/1000)
-#        c = datetime.strftime(b)
-#        datestring = b.strftime("%d-%m-%Y %H:%M:%S")
         datestring = b.strftime("%d"+" "+"%b"+", "+"%y %H:%M:%S")
-        aux = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_4HOUR, datestring)
+        aux = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_1MINUTE, datestring)
         if a == aux[-1][0]:
+            x = klines.pop()
+            print (x)
+            klines.append(aux.pop())
+        else:
             klines.pop()
-	    klines.append(aux.pop())
-	else:
-	    klines.pop()
             klines.extend(aux[-2:])
-             
-        
-    
-    
+    sleep(1)
