@@ -35,3 +35,13 @@ INDICADORES
     http://pythonhosted.org/tai/reference.html
 
 
+HILOS Y POO
+
+* [Python] Orientacion a objetos bien explicado
+    https://www.taringa.net/posts/info/18949362/Python-Orientacion-a-objetos-bien-explicado.html
+
+* Threads en Python
+    http://mundogeek.net/archivos/2008/04/18/threads-en-python/
+
+* Threading: programación con hilos (I) 
+    http://python-para-impacientes.blogspot.com/2016/12/threading-programacion-con-hilos-i.html

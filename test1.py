@@ -5,9 +5,8 @@ Created on Sun Mar  4 17:49:32 2018
 
 @author: fatm400
 """
-
-import settings
-from binance.client import Client
+import communicationPOO
+import threading
 from datetime import datetime
 import numpy as np
 from matplotlib.finance import date2num
@@ -16,33 +15,6 @@ import matplotlib.pyplot as plt
 from matplotlib.finance import candlestick_ohlc
 import matplotlib.dates as md
 import matplotlib.ticker as mticker
-
-
-client = Client(settings.api_key, settings.api_secret)
-klines = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_4HOUR, "2 Feb, 2018")
-#ax = plt.subplot2grid((1,1), (0,0))
-
-
-def ohlc(klines):
-    ohlc = []
-    for elemento in klines:
-        temp=[]
-        i = 0
-        for i in range(len(elemento)):
-            #los elementos 0 y 6 son las estampas de tiempo de inicio y final
-            # de la vela respectivamente
-            if i == 0 or i == 6: 
-                tradetime = md.epoch2num(elemento[i]/1000)
-                #las estampas de tiempo vienen en formato epoch en milisegundos
-                #se dividen entre mil para llevarlos a segundos
-                temp.append(tradetime)
-            else:
-                temp.append(float(elemento[i]))
-                #los otros elementos vienen en string es necesario convertirlo
-                #en punto flotante
-
-        ohlc.append(temp)
-    return ohlc
 
 def convert_array(ohlc, fuente=4):
     # fuente = 0 open timestamp
@@ -62,7 +34,7 @@ def convert_array(ohlc, fuente=4):
         return source_array
     
     except IndexError:
-        print  "error convert_array"
+        print  ("error convert_array")
         
 
 def grafico_estatico(ohlc):
@@ -72,10 +44,6 @@ def grafico_estatico(ohlc):
     plt.title('NANOUSD', size=15)
     plt.grid(True)
 
-
-#    for i in range(len(fecha)):
-#        agregar = fecha[i], apertura[i], alto[i], bajo[i], cierre[i]
-#        ohlc.append(agregar)
     fecha = convert_array(ohlc, 0)
     cierre = convert_array(ohlc)
 
@@ -135,8 +103,10 @@ def grafico_estatico(ohlc):
 #fecha, apertura, alto, bajo, cierre = np.loadtxt('datos_tratados.csv', delimiter=',', unpack=True,
 #                                                 converters={0: convertir})
 # 
-   
-ohlc = ohlc(klines)
+
+comm = communicationPOO.Communication()
+threading.Thread(name="hilo de comunicacion", target=comm.klines_historical())
+
 modo = input("Modo del gráfico - e/i: ")
 while modo != "e" and modo != "i":
     print("Modo incorrecto")
