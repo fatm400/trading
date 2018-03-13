@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Mon Mar  5 22:46:26 2018
@@ -38,12 +38,16 @@ aux = []
 for i in range(1,100):
 
     if klines == []:
-        klines = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_1MINUTE, "02 mar, 2018")
+        klines = client.get_historical_klines("NANOBTC", 
+                                              Client.KLINE_INTERVAL_1MINUTE,
+                                              "02 mar, 2018")
     else:
         a = klines[-1][0]
         b = datetime.fromtimestamp(float(a)/1000)
         datestring = b.strftime("%d"+" "+"%b"+", "+"%y %H:%M:%S")
-        aux = client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_1MINUTE, datestring)
+        aux = client.get_historical_klines("NANOBTC", 
+                                           Client.KLINE_INTERVAL_1MINUTE, 
+                                           datestring)
         if a == aux[-1][0]:
             x = klines.pop()
             print (x)
