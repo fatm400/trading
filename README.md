@@ -45,3 +45,12 @@ HILOS Y POO
 
 * Threading: programación con hilos (I) 
     http://python-para-impacientes.blogspot.com/2016/12/threading-programacion-con-hilos-i.html
+
+
+Base de Datos
+
+* Python y SqLite3 como base de datos
+    http://www.pythondiario.com/2013/12/python-y-sqlite3-como-base-de-datos.html
+
+* Bases de datos SQLite3 
+    http://python-para-impacientes.blogspot.com/2014/02/bases-de-datos-sqlite3.html
