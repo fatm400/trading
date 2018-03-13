@@ -9,6 +9,8 @@ import settings
 from binance.client import Client
 from datetime import datetime
 from time import sleep
+import sqlite3
+
 
 #KLINE_INTERVAL_1MINUTE = '1m'
 #KLINE_INTERVAL_3MINUTE = '3m'
@@ -31,6 +33,7 @@ class Communication:
     
     def __init__(self):
         self.client = Client(settings.api_key, settings.api_secret)
+        self.conDB = sqlite3.connect('/home/tamburinifa/Git/trading/communication.db')
     
     def klines_historical(self):
         
@@ -39,22 +42,28 @@ class Communication:
         while True:
         
             if self.klines == []:
-                self.klines = self.client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_1MINUTE, "10 mar, 2018")
+                self.klines = self.client.get_historical_klines("NANOBTC", 
+                                                                Client.KLINE_INTERVAL_1MINUTE, 
+                                                                "10 mar, 2018")
             else:
                 a = self.klines[-1][0]
                 b = datetime.fromtimestamp(float(a)/1000)
                 datestring = b.strftime("%d"+" "+"%b"+", "+"%y %H:%M:%S")
-                self.aux = self.client.get_historical_klines("NANOBTC", Client.KLINE_INTERVAL_1MINUTE, datestring)
+                self.aux = self.client.get_historical_klines("NANOBTC", 
+                                                             Client.KLINE_INTERVAL_1MINUTE, 
+                                                             datestring)
                 if a == self.aux[-1][0]:
                     self.klines.pop()
                     self.klines.append(self.aux.pop())
                 else:
                     self.klines.pop()
                     self.klines.extend(self.aux[-2:])
+            
+            
 
             sleep(1)
-        return self.klines
             
 comm = Communication()
 
-a = comm.klines_historical()
+comm.klines_historical()
+print (comm.klines)
