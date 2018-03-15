@@ -54,3 +54,21 @@ Base de Datos
 
 * Bases de datos SQLite3 
     http://python-para-impacientes.blogspot.com/2014/02/bases-de-datos-sqlite3.html
+
+
+Interfa Grafica de Usuario
+
+* Plotly Candlestick Chart in Python
+    https://plot.ly/~jackp/17421/plotly-candlestick-chart-in-python/
+
+* Candlestick Charts in Python - plotly
+    https://plot.ly/python/candlestick-charts/#new-to-plotly
+
+* OHLC Charts in Python
+    https://plot.ly/python/ohlc-charts/
+
+* How to Plot Candlestick Charts using Python
+    https://www.marketcalls.in/python/how-to-plot-candlestick-charts-using-python.html
+
+* Gráficas interactivas con Plotly
+    https://www.pybonacci.org/2014/08/22/graficas-interactivas-con-plotly/
