@@ -9,6 +9,7 @@ import settings
 from binance.client import Client
 from datetime import datetime
 from time import sleep
+import sqlite3
 
 #KLINE_INTERVAL_1MINUTE = '1m'
 #KLINE_INTERVAL_3MINUTE = '3m'
@@ -31,6 +32,8 @@ class Communication:
     
     def __init__(self):
         self.client = Client(settings.api_key, settings.api_secret)
+#        self.con = sqlite3.connect('./communication.db')
+#        self.cursor = self.con.cursor()
     
     def klines_historical(self):
         
@@ -56,9 +59,14 @@ class Communication:
                     self.klines.pop()
                     self.klines.extend(self.aux[-2:])
             
-            
-
+            print ("estoy en línea")
+#            self.cursor.execute("SELECT flag from flag where ID = 1")
+#            self.registro = self.cursor.fetchone()
+#            if self.registro[0] == 0:
+#                self.con.close()
+#                break
             sleep(1)
+            
             
 comm = Communication()
 

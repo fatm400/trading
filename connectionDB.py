@@ -8,7 +8,7 @@ Created on Tue Mar 13 10:04:47 2018
 
 import sqlite3
 
-con = sqlite3.connect('/home/tamburinifa/Git/trading/communication.db')
+con = sqlite3.connect('./communication.db')
 
 cursor = con.cursor()
 

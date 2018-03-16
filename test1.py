@@ -6,10 +6,10 @@ Created on Sun Mar  4 17:49:32 2018
 @author: fatm400
 """
 import communicationPOO
-import threading
-from datetime import datetime
+#import threading
+#from datetime import datetime
 import numpy as np
-from matplotlib.finance import date2num
+#from matplotlib.finance import date2num
 from matplotlib import style
 import matplotlib.pyplot as plt
 from matplotlib.finance import candlestick_ohlc
@@ -105,7 +105,8 @@ def grafico_estatico(ohlc):
 # 
 
 comm = communicationPOO.Communication()
-threading.Thread(name="hilo de comunicacion", target=comm.klines_historical())
+comm.klines_historical()
+print (comm.klines)
 
 modo = input("Modo del gráfico - e/i: ")
 while modo != "e" and modo != "i":
@@ -113,6 +114,6 @@ while modo != "e" and modo != "i":
     modo = input("Modo del gráfico: e/i")
 
 if modo == "e":
-    grafico_estatico(ohlc) 
+    grafico_estatico(comm.klines) 
 #else:
 #    grafico_interactivo()
